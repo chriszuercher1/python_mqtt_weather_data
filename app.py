@@ -24,8 +24,14 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     topic = msg.topic
-    payload = float(msg.payload.decode('utf-8'))
-    socketio.emit('mqtt_message', {'topic': topic, 'data': payload})
+    payload = msg.payload.decode('utf-8')
+    try:
+        # Attempt to convert the payload to a float
+        data = float(payload)
+        socketio.emit('mqtt_message', {'topic': topic, 'data': data})
+    except ValueError:
+        # Handle non-numeric payloads (e.g., LWT message)
+        print(f"Received non-numeric payload: {payload}")
 
 client = mqtt.Client()
 client.on_connect = on_connect

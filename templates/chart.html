@@ -15,8 +15,8 @@
             background-color: rgb(29, 28, 28);
         }
         .chart-container {
-            width: 25%;
-            text-align: left;
+            width: 50%;
+            margin: auto;
         }
     </style>
 </head>
@@ -73,7 +73,7 @@
             }
         });
 
-        // Example of adding data dynamically
+        // Function to add data to the chart
         function addData(label, data) {
             temperatureChart.data.labels.push(label);
             temperatureChart.data.datasets.forEach((dataset) => {
@@ -82,12 +82,14 @@
             temperatureChart.update();
         }
 
-        // Simulate receiving data
-        setInterval(() => {
+        // Connect to the Socket.IO server
+        const socket = io.connect('http://' + window.location.hostname + ':' + window.location.port);
+
+        // Listen for MQTT messages from the server
+        socket.on('mqtt_message', function(msg) {
             const now = new Date().toLocaleTimeString();
-            const temperature = (Math.random() * 5 + 20).toFixed(2); // Random temperature between 20 and 25
-            addData(now, temperature);
-        }, 2000);
+            addData(now, msg.data);
+        });
     </script>
 </body>
 </html>
