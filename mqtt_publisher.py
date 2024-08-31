@@ -21,7 +21,7 @@ client.connect(broker, port)
 
 # Function to simulate and publish temperature data
 def publish_temperature_data():
-    for i in range(100):
+    while True:
         # Simulate temperature
         temperature = round(random.uniform(24.0, 25.0), 2)
         message = f"Temperature: {temperature}°C"
