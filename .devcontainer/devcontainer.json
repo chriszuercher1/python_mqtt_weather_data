@@ -27,6 +27,6 @@
             "onAutoForward": "notify"
         }
     },
-    "postCreateCommand": "chmod +x ./setup.sh && ./setup.sh",
+    "postCreateCommand": "apt-get update && apt-get install -y python3-pip && chmod +x ./setup.sh && ./setup.sh",
     "remoteUser": "vscode"
 }
