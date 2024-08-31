@@ -16,12 +16,12 @@ client.connect(broker, port)
 # Function to simulate and publish temperature data
 def publish_temperature_data():
     for i in range(100):
-        # Simulate a random temperature between 24 and 25 degrees Celsius
+        # Simulate temperature
         temperature = round(random.uniform(24.0, 25.0), 2)
         message = f"Temperature: {temperature}°C"
         client.publish(topic, message)
-        print(f"Published: {message}")
-        time.sleep(1)  # Sleep for a second between messages
+        # print(f"Published: {message}")
+        time.sleep(0.5)
 
 # Publish temperature data
 publish_temperature_data()
