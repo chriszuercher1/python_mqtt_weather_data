@@ -1,37 +1,32 @@
 import paho.mqtt.client as mqtt
 
-# Supress warnings
-import warnings
-warnings.filterwarnings("ignore")
+# MQTT broker settings
+broker = "localhost"
+port = 1883
+topic = "sensor/temperature"
 
-# IP-Address of broker (Raspberry Pi)
-MQTT_SERVER = "clt-lab-w-1979"
+# Callback function to handle incoming messages
+def on_message(client, userdata, message):
+    print(f"Received message: {message.payload.decode('utf-8')} on topic {message.topic}")
 
-# Topic names
-MQTT_TEMP = "sensor/temp"
-MQTT_HUMI = "sensor/humi"
-MQTT_PRES = "sensor/pres"
+# Initialize the MQTT client
+client = mqtt.Client("TemperaturePublisher")
 
-# The callback for when the client receives a CONNACK response from the server.
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code " + str(rc))
+# Connect to the MQTT broker
+client.connect(broker, port)
 
-    # Subscribing in on_connect() means that if we lose the connection
-    # and reconnect then subscriptions will be renewed.
-    client.subscribe(MQTT_TEMP)
-    client.subscribe(MQTT_HUMI)
-    client.subscribe(MQTT_PRES)
-
-# The callback for when a PUBLISH message is received from the server.
-def on_message(client, userdata, msg):
-    msg = str(msg.topic) + " " + str(msg.payload)[2:-1]
-    print(msg)
-
-client = mqtt.Client()
-client.on_connect = on_connect
+# Set the callback function
 client.on_message = on_message
 
-client.connect(MQTT_SERVER, 1883, 60)
+# Subscribe to the topic
+client.subscribe(topic)
 
-# Loop
-client.loop_forever()
+# Start the loop to process received messages
+client.loop_start()
+
+# Keep the script running to listen for incoming messages
+input("Press Enter to stop...\n")
+
+# Stop the loop and disconnect
+client.loop_stop()
+client.disconnect()

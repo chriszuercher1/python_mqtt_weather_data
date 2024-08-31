@@ -1,40 +1,30 @@
-import paho.mqtt.publish as publish
-from sense_hat import SenseHat
+import paho.mqtt.client as mqtt
 import time
+import random
 
-sense = SenseHat()
+# MQTT broker settings
+broker = "localhost"
+port = 1883
+topic = "sensor/temperature"
 
-# IP-Address of broker (Raspberry Pi)
-MQTT_SERVER = "clt-lab-w-1979"
+# Initialize the MQTT client
+client = mqtt.Client("TemperaturePublisher")
 
-# Topic names
-MQTT_TEMP   = "sensor/temp"
-MQTT_HUMI   = "sensor/humi"
-MQTT_PRES   = "sensor/pres"
+# Connect to the MQTT broker
+client.connect(broker, port)
 
-def read_temp():
-    t = sense.get_temperature()
-    t = round(t,2)
-    return t
+# Function to simulate and publish temperature data
+def publish_temperature_data():
+    for i in range(100):
+        # Simulate a random temperature between 24 and 25 degrees Celsius
+        temperature = round(random.uniform(24.0, 25.0), 2)
+        message = f"Temperature: {temperature}°C"
+        client.publish(topic, message)
+        print(f"Published: {message}")
+        time.sleep(1)  # Sleep for a second between messages
 
-def read_humidity():
-    h = sense.get_humidity()
-    h = round(h,2)
-    return h
+# Publish temperature data
+publish_temperature_data()
 
-def read_pressure():
-    p = sense.get_pressure()
-    p = round(p,2)
-    return p
-
-temp = float(read_temp())
-humi = float(read_humidity())
-pres = float(read_pressure())
-
-while True:
-    publish.single(MQTT_TEMP, temp, hostname=MQTT_SERVER)
-    time.sleep(0.5)
-    publish.single(MQTT_HUMI, humi, hostname=MQTT_SERVER)
-    time.sleep(0.5)
-    publish.single(MQTT_PRES, pres, hostname=MQTT_SERVER)
-    time.sleep(0.5)
+# Disconnect from the broker
+client.disconnect()
