@@ -7,15 +7,14 @@
                 "ms-azuretools.vscode-docker",
                 "ms-python.python",
                 "editorconfig.editorconfig"
-            ]
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python3.11"
+            }
         }
     },
     "features": {
-        "docker-in-docker": "latest",
-        "git": "latest",
-        "python": "3.11",
-        "node": "18",
-        "common-utils": "latest"
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
     "forwardPorts": [1883, 8883],
     "portsAttributes": {
@@ -29,8 +28,5 @@
         }
     },
     "postCreateCommand": "chmod +x ./setup.sh && ./setup.sh",
-    "remoteUser": "vscode",
-    "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python3.11"
-    }
+    "remoteUser": "vscode"
 }
