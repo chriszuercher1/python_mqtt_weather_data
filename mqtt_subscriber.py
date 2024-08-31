@@ -10,7 +10,7 @@ def on_message(client, userdata, message):
     print(f"Received message: {message.payload.decode()} on topic {message.topic}")
 
 # Initialize the MQTT client
-client = mqtt.Client("TemperatureSubscriber")
+client = mqtt.Client("TemperatureSubscriber", clean_session=False)
 
 # Set the callback function for message reception
 client.on_message = on_message
