@@ -1,6 +1,6 @@
-import paho.mqtt.client as mqtt
 import time
 import random
+import paho.mqtt.client as mqtt
 
 # MQTT broker settings
 broker = "localhost"
