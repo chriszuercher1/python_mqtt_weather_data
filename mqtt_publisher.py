@@ -10,7 +10,7 @@ topic = "sensor/temperature"
 # Initialize the MQTT client
 client = mqtt.Client("TemperaturePublisher", clean_session=False)
 
-# Set the Last Will and Testament (LWT)
+# Set the Last Will and Testament (LWT) message
 client.will_set(topic, "Client disconnected", qos=1, retain=True)
 
 # Enable logging
