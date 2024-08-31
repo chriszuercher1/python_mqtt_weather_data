@@ -34,6 +34,6 @@
             "onAutoForward": "notify"
         }
     },
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y python3-pip && chmod +x ./setup.sh && ./setup.sh",
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y python3-pip && chmod +x ./setup.sh && ./setup.sh & pip install -r requirements.txt",
     "remoteUser": "vscode"
 }
