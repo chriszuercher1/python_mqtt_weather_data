@@ -14,7 +14,7 @@ client = mqtt.Client("TemperaturePublisher", clean_session=False)
 client.will_set(topic, "Client disconnected", qos=1, retain=True)
 
 # Enable logging
-client.on_log = lambda client, userdata, level, buf: print(f"Log: {buf}")
+# client.on_log = lambda client, userdata, level, buf: print(f"Log: {buf}")
 
 # Connect to the MQTT broker
 client.connect(broker, port)
