@@ -1,9 +1,5 @@
 flask
 flask-socketio
-langchain-community
 matplotlib
 pandas
 paho-mqtt
-psycopg2
-pykafka
-sqlalchemy
