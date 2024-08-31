@@ -17,7 +17,6 @@
         "node": "18",
         "common-utils": "latest"
     },
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y mosquitto mosquitto-clients && pip install -r requirements.txt",
     "forwardPorts": [1883, 8883],
     "portsAttributes": {
         "1883": {
@@ -29,6 +28,7 @@
             "onAutoForward": "notify"
         }
     },
+    "postCreateCommand": "chmod +x ./setup.sh && ./setup.sh",
     "remoteUser": "vscode",
     "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python3.11"
