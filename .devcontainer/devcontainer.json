@@ -1,6 +1,6 @@
 {
     "name": "MQTT Development Environment",
-    "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -18,10 +18,7 @@
         }
     },
     "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "git": "latest",
-        "python": "3.11",
-        "node": "18"
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
     "forwardPorts": [1883, 8883],
     "portsAttributes": {
@@ -34,6 +31,6 @@
             "onAutoForward": "notify"
         }
     },
-   "postCreateCommand": "apt-get update && apt-get install -y python3-pip && chmod +x setup.sh && ./setup.sh",
+   "postCreateCommand": "apt-get update && apt-get install -y python3-pip && chmod +x setup.sh && ./setup.sh && pip install -r requirements.txt",
     "remoteUser": "vscode"
 }
