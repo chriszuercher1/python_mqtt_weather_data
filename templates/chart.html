@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Sensor Data from Raspberry Pi</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+    <style>
+        body {
+            background-color: rgb(29, 28, 28);
+            color: greenyellow;
+        }
+        canvas {
+            background-color: rgb(29, 28, 28);
+        }
+        .chart-container {
+            width: 25%;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <h2>Real-Time Temperature Data</h2>
+        <canvas id="temperatureChart"></canvas>
+    </div>
+
+    <script>
+        const temperatureCtx = document.getElementById('temperatureChart').getContext('2d');
+
+        const temperatureChart = new Chart(temperatureCtx, {
+            type: 'line',
+            data: {
+                labels: [], // Time labels will be added dynamically
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [],
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: 'greenyellow' // Legend text color
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'greenyellow' // X-axis labels color
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)' // X-axis grid lines color
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'greenyellow' // Y-axis labels color
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines color
+                        }
+                    }
+                }
+            }
+        });
+
+        // Example of adding data dynamically
+        function addData(label, data) {
+            temperatureChart.data.labels.push(label);
+            temperatureChart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data);
+            });
+            temperatureChart.update();
+        }
+
+        // Simulate receiving data
+        setInterval(() => {
+            const now = new Date().toLocaleTimeString();
+            const temperature = (Math.random() * 5 + 20).toFixed(2); // Random temperature between 20 and 25
+            addData(now, temperature);
+        }, 2000);
+    </script>
+</body>
+</html>

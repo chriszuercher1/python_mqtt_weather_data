@@ -24,7 +24,7 @@ def publish_temperature_data():
     while True:
         # Simulate temperature
         temperature = round(random.uniform(24.0, 25.0), 2)
-        message = f"Published message: {temperature:.2f}°C"
+        message = float(temperature)
         client.publish(topic, message, qos=1, retain=True)
         time.sleep(0.5)
 
