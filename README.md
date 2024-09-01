@@ -42,7 +42,7 @@ python mqtt_publisher.py
 # Run the subscriber (optional)
 python mqtt_subscriber.py
 
-# Run the app and open the provides url (e.g. )
+# Run the app
 python app.py
 ```
 
