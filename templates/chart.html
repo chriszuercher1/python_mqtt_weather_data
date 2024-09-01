@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Sensor Data</title>
+    <title>Real-Time Sensor Data from Raspberry Pi</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
     <style>
         body {
             background-color: rgb(29, 28, 28);
             color: greenyellow;
+            display: flex;
+            justify-content: left;
+            align-items: left;
+            height: 100vh;
+            margin: 0;
         }
         canvas {
             background-color: rgb(29, 28, 28);
         }
         .chart-container {
             width: 50%;
-            margin: auto;
+            text-align: center;
         }
     </style>
 </head>
@@ -50,10 +55,11 @@
                         labels: {
                             color: 'greenyellow' // Legend text color
                         }
-                    }
+                    },
                 },
                 scales: {
                     x: {
+                        display: true,
                         title: {
                             display: true,
                             text: 'Time',
@@ -67,6 +73,7 @@
                         }
                     },
                     y: {
+                        display: true,
                         title: {
                             display: true,
                             text: 'Temperature (°C)',
@@ -79,28 +86,35 @@
                             color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines color
                         },
                         min: 0, // Set the minimum value of the y-axis
-                        max: 50 // Set the maximum value of the y-axis
+                        max: 100 // Set the maximum value of the y-axis
                     }
                 }
             }
         });
 
-        // Function to add data to the chart
-        function addData(label, data) {
-            temperatureChart.data.labels.push(label);
-            temperatureChart.data.datasets.forEach((dataset) => {
-                dataset.data.push(data);
-            });
-            temperatureChart.update();
-        }
+        // Establish a Socket.IO connection
+        const socket = io();
 
-        // Connect to the Socket.IO server
-        const socket = io.connect('http://' + window.location.hostname + ':' + window.location.port);
-
-        // Listen for MQTT messages from the server
+        // Listen for 'mqtt_message' event
         socket.on('mqtt_message', function(msg) {
-            const now = new Date().toLocaleTimeString();
-            addData(now, msg.data);
+            const topic = msg.topic;
+            const data = msg.data;
+            const currentTime = new Date().toLocaleTimeString();
+
+            if (topic === "sensor/temp") {
+                // Add new data to the temperature chart
+                temperatureChart.data.labels.push(currentTime);
+                temperatureChart.data.datasets[0].data.push(parseFloat(data));
+
+                // Limit the number of data points displayed (e.g., last 20)
+                if (temperatureChart.data.labels.length > 20) {
+                    temperatureChart.data.labels.shift();
+                    temperatureChart.data.datasets[0].data.shift();
+                }
+
+                // Update the temperature chart
+                temperatureChart.update();
+            }
         });
     </script>
 </body>

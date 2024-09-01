@@ -29,7 +29,9 @@ def on_message(client, userdata, msg):
     try:
         # Attempt to convert the payload to a float
         data = float(payload)
+        # print(f"Received data: {data}")
         socketio.emit('mqtt_message', {'topic': topic, 'data': data})
+        # print(f"Emitted data: {data}")
     except ValueError:
         # Handle non-numeric payloads (e.g., LWT message)
         print(f"Received non-numeric payload: {payload}")
