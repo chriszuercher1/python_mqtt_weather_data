@@ -14,17 +14,16 @@ client = mqtt.Client("TemperaturePublisher")
 # client.on_log = lambda client, userdata, level, buf: print(f"Log: {buf}")
 
 # Connect to the MQTT broker
-client.connect(broker, port)
+client.connect(broker)
 
 # Function to simulate and publish temperature data
 def publish_temperature_data():
     try:
         while True:
-            # Simulate temperature
             temperature = round(random.uniform(24.0, 25.0), 2)
-            message = str(temperature)  # Send as string
+            message = str(temperature)
             print(f"Publishing: {message}")
-            client.publish(topic, message, qos=1, retain=False)
+            client.publish(topic, message)
             time.sleep(0.5)
     except KeyboardInterrupt:
         print("Disconnecting from broker...")
