@@ -3,8 +3,7 @@ import requests
 from datetime import datetime
 
 def get_most_recent_air_temperature():
-    current_date = datetime.now().strftime("%Y-%m-%d")
-    url = f"https://tecdottir.herokuapp.com/measurements/tiefenbrunnen?startDate={current_date}&sort=timestamp_cet%20desc&limit=500&offset=0"
+    url = f"https://tecdottir.herokuapp.com/measurements/tiefenbrunnen?sort=timestamp_cet%20desc&limit=5"
     response = requests.get(url)
     data = response.json()
 
