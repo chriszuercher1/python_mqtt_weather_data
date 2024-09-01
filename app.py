@@ -6,6 +6,7 @@ import paho.mqtt.client as mqtt
 import warnings
 warnings.filterwarnings("ignore")
 
+# Create a Flask web app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'geheim'
 socketio = SocketIO(app)
@@ -33,15 +34,18 @@ def on_message(client, userdata, msg):
         # Handle non-numeric payloads (e.g., LWT message)
         print(f"Received non-numeric payload: {payload}")
 
+# Create an MQTT client and attach our routines to it.
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 client.connect(MQTT_SERVER, 1883, 60)
 
+# Define the index route
 @app.route('/')
 def index():
     return render_template('chart.html')
 
+# Start the web server
 if __name__ == '__main__':
     client.loop_start()
     socketio.run(app, host='0.0.0.0', port=5000)

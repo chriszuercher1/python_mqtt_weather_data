@@ -28,7 +28,7 @@ client.on_message = on_message
 # Connect to the MQTT broker
 client.connect(broker, port)
 
-# Subscribe to the temperature topic
+# Subscribe to the topic
 client.subscribe(topic)
 
 # Start the MQTT client loop to process messages
