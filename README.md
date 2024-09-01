@@ -33,7 +33,7 @@ To make sure it runs, you can open a Terminal and type:
 ```bash
 mosquitto -d 
 ```
-To run the MQTT example, run the mqtt_publisher.py and the app.py in separate Terminals.
+To run the MQTT examples, run the mqtt_publisher.py, mqtt_subscriber.py, and app.py in separate Terminals.
 
 ```bash
 # Run the publisher
