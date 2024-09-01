@@ -9,11 +9,9 @@ topic = "sensor/temp"
 def on_message(client, userdata, message):
     payload = message.payload.decode()
     try:
-        # Attempt to convert the payload to a float
         temperature = float(payload)
         print(f"Received temperature: {temperature}°C")
     except ValueError:
-        # Ignore non-numeric payloads (e.g., LWT message)
         pass
 
 # Initialize the MQTT client
