@@ -46,5 +46,6 @@ def publish_temperature_data():
         print("Disconnecting from broker...")
         client.disconnect()
 
-# Publish temperature data
-publish_temperature_data()
+if __name__ == "__main__":
+    # Publish temperature data
+    publish_temperature_data()
