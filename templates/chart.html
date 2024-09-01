@@ -54,6 +54,11 @@
                 },
                 scales: {
                     x: {
+                        title: {
+                            display: true,
+                            text: 'Time',
+                            color: 'greenyellow' // X-axis title color
+                        },
                         ticks: {
                             color: 'greenyellow' // X-axis labels color
                         },
@@ -62,12 +67,19 @@
                         }
                     },
                     y: {
+                        title: {
+                            display: true,
+                            text: 'Temperature (°C)',
+                            color: 'greenyellow' // Y-axis title color
+                        },
                         ticks: {
                             color: 'greenyellow' // Y-axis labels color
                         },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines color
-                        }
+                        },
+                        min: 0, // Set the minimum value of the y-axis
+                        max: 50 // Set the maximum value of the y-axis
                     }
                 }
             }

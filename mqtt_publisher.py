@@ -14,7 +14,7 @@ client = mqtt.Client("TemperaturePublisher")
 # client.on_log = lambda client, userdata, level, buf: print(f"Log: {buf}")
 
 # Connect to the MQTT broker
-client.connect(broker)
+client.connect(broker, port)
 
 # Function to simulate and publish temperature data
 def publish_temperature_data():
