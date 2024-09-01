@@ -86,7 +86,7 @@
                             color: 'rgba(255, 255, 255, 0.2)' // Y-axis grid lines color
                         },
                         min: 0, // Set the minimum value of the y-axis
-                        max: 100 // Set the maximum value of the y-axis
+                        max: 50 // Set the maximum value of the y-axis
                     }
                 }
             }
@@ -105,12 +105,6 @@
                 // Add new data to the temperature chart
                 temperatureChart.data.labels.push(currentTime);
                 temperatureChart.data.datasets[0].data.push(parseFloat(data));
-
-                // Limit the number of data points displayed (e.g., last 20)
-                if (temperatureChart.data.labels.length > 20) {
-                    temperatureChart.data.labels.shift();
-                    temperatureChart.data.datasets[0].data.shift();
-                }
 
                 // Update the temperature chart
                 temperatureChart.update();
