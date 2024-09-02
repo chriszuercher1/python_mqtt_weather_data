@@ -26,9 +26,9 @@ Based on the GitHub repository you must create a new GitHub Codespaces environme
 
 ### Usage
 
-The mosquitto broker should automatically start after installation (see setup.sh).
+The mosquitto broker should automatically start after the first setup of your GitHub Codespaces environment (see setup.sh).
 
-To make sure it runs, you can open a Terminal and type:
+To make sure it runs after every restart of your GitHub Codespaces environment, type:
 
 ```bash
 mosquitto -d 
