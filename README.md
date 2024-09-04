@@ -28,10 +28,16 @@ Based on the GitHub repository you must create a new GitHub Codespaces environme
 
 The mosquitto broker should automatically start after the first setup of your GitHub Codespaces environment (see setup.sh).
 
-To make sure it runs after every restart of your GitHub Codespaces environment, type:
+To check, whether mosquitto is running, open a Terminal and type:
 
 ```bash
-mosquitto -d 
+ps aux | grep mosquitto
+```
+
+In case mosquitto is not running you can start it manually by typing:
+
+```bash
+mosquitto -d
 ```
 To run the MQTT examples, run the mqtt_publisher.py, mqtt_subscriber.py, and app.py in separate Terminals.
 
