@@ -9,7 +9,7 @@ port = 1883
 topic = "sensor/temp"
 
 # Initialize the MQTT client
-client = mqtt.Client("TemperaturePublisher")
+client = mqtt.Client("Publisher")
 
 # Enable logging (optional)
 # client.on_log = lambda client, userdata, level, buf: print(f"Log: {buf}")
@@ -17,8 +17,8 @@ client = mqtt.Client("TemperaturePublisher")
 # Connect to the MQTT broker
 client.connect(broker, port)
 
-# Function to fetch the most recent air temperature data from the weather API
-def get_most_recent_air_temperature():
+# Function to fetch the most recent data from the weather API
+def get_data():
     url = "https://tecdottir.herokuapp.com/measurements/tiefenbrunnen?sort=timestamp_cet%20desc&limit=5"
     response = requests.get(url)
     data = response.json()
@@ -26,18 +26,18 @@ def get_most_recent_air_temperature():
     if data["ok"] and len(data["result"]) > 0:
         # Assuming the most recent entry is the first in the sorted list
         most_recent_entry = data["result"][0]
-        air_temperature = most_recent_entry["values"]["air_temperature"]["value"]
-        return air_temperature
+        value = most_recent_entry["values"]["air_temperature"]["value"]
+        return value
     else:
         return None
 
-# Function to fetch and publish air temperature data
-def publish_temperature_data():
+# Function to fetch and publish data
+def publish_data():
     try:
         while True:
-            air_temperature = get_most_recent_air_temperature()
-            if air_temperature is not None:
-                message = str(air_temperature)
+            value = get_data()
+            if value is not None:
+                message = str(value)
                 print(f"Publishing: {message}°C from {topic}")
                 client.publish(topic, message)
             else:
@@ -48,5 +48,5 @@ def publish_temperature_data():
         client.disconnect()
 
 if __name__ == "__main__":
-    # Publish temperature data
-    publish_temperature_data()
+    # Publish data
+    publish_data()

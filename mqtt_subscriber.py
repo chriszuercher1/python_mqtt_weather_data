@@ -15,7 +15,7 @@ def on_message(client, userdata, message):
         pass
 
 # Initialize the MQTT client
-client = mqtt.Client("TemperatureSubscriber")
+client = mqtt.Client("Subscriber")
 
 # Set the callback function for message reception
 client.on_message = on_message
